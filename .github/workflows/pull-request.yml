@@ -33,6 +33,7 @@ jobs:
 
       - name: Build Project
         run: pnpm test
+        
 
   lint:
     runs-on: ubuntu-latest
