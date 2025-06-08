@@ -65,6 +65,8 @@ jobs:
         uses: ./.github/actions/configure  
       - name: Install Playwright
         run: npx playwright install --with-deps
+      - name: Install dependencies using PNPM
+        run: pnpm install   
       - name: Build Storybook
         run: yarn build-storybook --quiet
 
@@ -72,8 +74,7 @@ jobs:
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
           "npx http-server storybook-static --port 6006 --silent" \
-          "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook --coverage --junit"
-  
+          "npx wait-on tcp:127.0.0.1:6006 && pnpm test-storybook:ci-coverage"
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
         with:
