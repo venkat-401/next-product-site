@@ -16,7 +16,6 @@ permissions:
   pull-requests: write
 
 jobs:
-  
   build:
     runs-on: ubuntu-latest
     steps:
@@ -68,11 +67,17 @@ jobs:
       - name: Build Storybook
         run: yarn build-storybook --quiet
 
-      - name: Serve Storybook and run tests
+      - name: Serve Storybook and run tests with coverage
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
           "npx http-server storybook-static --port 6006 --silent" \
-          "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook --junit"
+          "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook --coverage --junit"
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+         name: storybook-coverage-report
+         path: coverage    
 
       - name: Publish Tests
         uses: EnricoMi/publish-unit-test-result-action@v2
