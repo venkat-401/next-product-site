@@ -1,12 +1,13 @@
 name: Pull Request
 
-on:
+on: [push, pull_request]
   #pull_request:
     #types: [opened, synchronize]
     #branches: [main]
-    push:
-      paths:
-        - .github/workflows/pull-request.yml
+    #push:
+      #paths:
+        #- .github/workflows/pull-request.yml
+             
 
 env:
   NODE_VERSION: 18.x
@@ -64,13 +65,19 @@ jobs:
         uses: ./.github/actions/configure  
       - name: Install Playwright
         run: npx playwright install --with-deps
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1  
       - name: Build Storybook
         run: yarn build-storybook --quiet  
       - name: Serve Storybook and run tests
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
           "npx http-server storybook-static --port 6006 --silent" \
-          "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook --junit"  
+          "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook:ci-coverage --junit"
+      - name: Generate code coverage
+        uses: codecov/codecov-action@v3
+        with:
+          verbose: true      
       - name: Publish Tests
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
