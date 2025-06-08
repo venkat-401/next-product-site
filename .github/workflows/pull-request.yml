@@ -77,7 +77,7 @@ jobs:
           "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook --coverage --junit"
 
       - name: Upload Coverage Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
          name: storybook-coverage-report
          path: coverage    
