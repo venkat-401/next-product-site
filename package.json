@@ -15,7 +15,9 @@
     "test-storybook": "test-storybook",
     "prepare": "husky",
     "generate-large-data": "node ./scripts/generateLargeData.js",
-    "generate-small-data": "node ./scripts/generateSmallData.js"
+    "generate-small-data": "node ./scripts/generateSmallData.js",
+    "test-storybook": "storybook test",
+    "test-storybook:ci-coverage": "storybook test --coverage"
   },
   "engines": {
     "node": ">=18",
