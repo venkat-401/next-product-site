@@ -65,8 +65,7 @@ jobs:
         uses: ./.github/actions/configure  
       - name: Install Playwright
         run: npx playwright install --with-deps
-      - name: Install dependencies using PNPM
-        run: pnpm install   
+ 
       - name: Build Storybook
         run: yarn build-storybook --quiet
 
