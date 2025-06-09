@@ -15,8 +15,6 @@ jobs:
         with:
           fetch-depth: 0 # Ensures full commit history is fetched for release-please
 
-
-
       - name: Run Release Please
         uses: google-github-actions/release-please-action@v3
         with:
