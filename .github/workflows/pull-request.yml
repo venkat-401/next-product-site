@@ -1,12 +1,9 @@
 name: Pull Request
 
-on: [push, pull_request]
-  #pull_request:
-    #types: [opened, synchronize]
-    #branches: [main]
-    #push:
-      #paths:
-        #- .github/workflows/pull-request.yml
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: [main]
              
 
 env:
