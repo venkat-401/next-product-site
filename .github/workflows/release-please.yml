@@ -15,20 +15,8 @@ jobs:
         with:
           fetch-depth: 0 # Ensures full commit history is fetched for release-please
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18 # Ensures the correct Node.js version is used
-          cache: 'pnpm' # Caches dependencies for faster builds
-
-      - name: Install PNPM
-        uses: pnpm/action-setup@v2
-        with:
-            version: 8 # Installs PNPM version 8    
-
       - name: Install Dependencies
         run: pnpm install # Installs dependencies required for release-please
-
 
       - name: Run Release Please
         uses: google-github-actions/release-please-action@v3
