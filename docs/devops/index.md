@@ -2,6 +2,40 @@
 
 Documentation on any DevOps changes made.
 
-# Storybook Test Automation
+## Pull Request title validation
 
-This GitHub Actions workflow automates Storybook testing. It checks out the code, configures the environment, builds Storybook, serves it, runs tests using Playwright, and publishes the results as a JUnit report. The results are uploaded for review using the publish-unit-test-result-action. This workflow ensures that all changes are tested and results are easily accessible within GitHub.
+Includes a check for titles on pull requests.
+
+## How to test it
+
+You can do this by creating a new branch, committing the changes, pushing to the origin, and then creating a pull request. Visit [Github Actions](https://github.com/jhanke00/next-product-site/actions) to observe the results.
+
+## Considerations
+
+I referred to [Documentation](https://github.com/amannn/action-semantic-pull-request).
+
+## TypeScript validation
+
+Includes a typescript check for files.
+
+## How to test it
+
+You can do this by creating a new branch, committing the changes, pushing to the origin, and then creating a pull request. Visit [Github Actions](https://github.com/jhanke00/next-product-site/actions) to observe the results.
+
+Or locally run:
+
+```sh
+pnpm tsc
+```
+
+## Automates release generation
+
+Includes automates CHANGELOG generation, the creation of GitHub releases, and version bumps.
+
+## How to test it
+
+Once the PR is merged, it will create a new PR containing the changelog list
+
+## Considerations
+
+I referred to [Documentation](https://github.com/googleapis/release-please).

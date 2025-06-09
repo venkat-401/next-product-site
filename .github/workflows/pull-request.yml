@@ -1,22 +1,13 @@
 name: Pull Request
 
-on: [push, pull_request]
-  #pull_request:
-    #types: [opened, synchronize]
-    #branches: [main]
-    #push:
-      #paths:
-        #- .github/workflows/pull-request.yml             
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: [main]
 
 env:
   NODE_VERSION: 18.x
   PNPM_VERSION: 8
-
-permissions:
-  contents: read
-  issues: read
-  checks: write
-  pull-requests: write
 
 jobs:
   build:
@@ -46,14 +37,15 @@ jobs:
   typescript:
     runs-on: ubuntu-latest
     steps:
-                  - name: Checkout Git
-                    uses: actions/checkout@v4
-            
-                  - name: Configure Worflow
-                    uses: ./.github/actions/configure
-            
-                  - name: Check TypeScript
-                    run: pnpm tsc
+      - name: Checkout Git
+        uses: actions/checkout@v4
+
+      - name: Configure Worflow
+        uses: ./.github/actions/configure
+
+      - name: Check TypeScript
+        run: pnpm tsc
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -69,14 +61,11 @@ jobs:
   knip:
     runs-on: ubuntu-latest
     steps:
-            - name: Checkout Git
-              uses: actions/checkout@v4
-      
-            - name: Configure Worflow
-              uses: ./.github/actions/configure
-      
-            - name: Check unused files, dependencies, exports
-              run: pnpm knip      
+      - name: Checkout Git
+        uses: actions/checkout@v4
 
+      - name: Configure Worflow
+        uses: ./.github/actions/configure
 
-
+      - name: Check unused files, dependencies, exports
+        run: pnpm knip
