@@ -1,9 +1,10 @@
 name: release-please
 
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]
+#on:
+  #push:
+    #branches:
+      #- main
 
 jobs:
   release-please:
@@ -13,4 +14,4 @@ jobs:
         with:
           release-type: node
           package-name: release-please-action
-          default-branch: main
+          default-branch: feature-branch-pramod
