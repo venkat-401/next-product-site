@@ -23,6 +23,7 @@ jobs:
 
       - name: Install Dependencies
         run: pnpm install # Installs dependencies required for release-please
+        
 
       - name: Run Release Please
         uses: google-github-actions/release-please-action@v3
