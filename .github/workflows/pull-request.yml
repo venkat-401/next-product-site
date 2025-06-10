@@ -74,16 +74,19 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install Dependencies
+        run: pnpm install # Use npm or yarn if you're not using pnpm
 
-      - name: Run Snyk Monitor
-        uses: snyk/actions/node@v3
-        with:
-          command: monitor
-          args: --all-projects
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Authenticate Snyk
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk auth $SNYK_TOKEN
+
+      - name: Run Snyk Test
+        run: snyk test --all-projects
 
   storybook-tests:
     runs-on: ubuntu-latest
