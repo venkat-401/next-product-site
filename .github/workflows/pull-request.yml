@@ -63,6 +63,27 @@ jobs:
       - name: Check ESLint
         run: pnpm lint
 
+  snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@v3
+        with:
+          command: test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
   storybook-tests:
     runs-on: ubuntu-latest
     steps:
