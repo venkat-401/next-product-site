@@ -166,6 +166,28 @@ jobs:
       - name: Check ESLint
         run: pnpm lint
 
+  snyk-scan:
+          runs-on: ubuntu-latest
+          steps:
+            - name: Checkout Git
+              uses: actions/checkout@v4
+      
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: ${{ env.NODE_VERSION }}
+      
+            - name: Install Snyk CLI
+              run: npm install -g snyk
+      
+            - name: Authenticate Snyk
+              env:
+                SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+              run: snyk auth $SNYK_TOKEN
+      
+            - name: Run Snyk Test
+              run: snyk test --all-projects           
+
   storybook-tests:
     runs-on: ubuntu-latest
     steps:
@@ -203,24 +225,4 @@ jobs:
           files: |
             junit.xml
 
-  snyk-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Git
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Install Snyk CLI
-        run: npm install -g snyk
-
-      - name: Authenticate Snyk
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk auth $SNYK_TOKEN
-
-      - name: Run Snyk Test
-        run: snyk test --all-projects            
+       
