@@ -78,9 +78,10 @@ jobs:
         run: pnpm install
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@v3
+        uses: snyk/actions@v0.6.0
         with:
           command: test
+          args: --all-projects
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
