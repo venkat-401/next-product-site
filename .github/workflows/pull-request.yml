@@ -88,8 +88,25 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk auth $SNYK_TOKEN
 
-      - name: Run Snyk Test
-        run: snyk test --all-projects
+      - name: Run Snyk Test and Save Report
+        run: snyk test --all-projects --json > snyk-report.json || true
+
+      - name: Display Vulnerabilities by Severity
+        run: |
+          echo "Critical Issues:"
+          jq '.vulnerabilities[] | select(.severity=="critical") | {title: .title, severity: .severity, url: .url}' snyk-report.json
+          echo "High Issues:"
+          jq '.vulnerabilities[] | select(.severity=="high") | {title: .title, severity: .severity, url: .url}' snyk-report.json
+          echo "Medium Issues:"
+          jq '.vulnerabilities[] | select(.severity=="medium") | {title: .title, severity: .severity, url: .url}' snyk-report.json
+          echo "Low Issues:"
+          jq '.vulnerabilities[] | select(.severity=="low") | {title: .title, severity: .severity, url: .url}' snyk-report.json
+
+      - name: Upload Snyk Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-report
+          path: snyk-report.json
 
   storybook-tests:
     runs-on: ubuntu-latest
