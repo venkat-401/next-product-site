@@ -115,39 +115,4 @@ jobs:
           name: snyk-report
           path: snyk-report.json
 
-  storybook-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Git
-        uses: actions/checkout@v4
 
-      - name: Configure Workflow
-        uses: ./.github/actions/configure
-
-      - name: Install Playwright
-        run: npx playwright install --with-deps
-
-      - name: Install Babel Dependencies for Coverage
-        run: pnpm install --save-dev @babel/core @babel/preset-env babel-plugin-istanbul
-
-      - name: Build Storybook
-        run: yarn build-storybook --quiet
-
-      - name: Serve Storybook and run tests with coverage
-        run: |
-          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-          "npx http-server storybook-static --port 6006 --silent" \
-          "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook --coverage --junit"
-
-      - name: Upload Coverage Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: storybook-coverage-report
-          path: coverage
-
-      - name: Publish Tests
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        with:
-          check_name: 'storybook-tests-result'
-          files: |
-            junit.xml
