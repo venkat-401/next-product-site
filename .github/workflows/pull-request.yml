@@ -78,7 +78,7 @@ jobs:
         run: pnpm install
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions@v0.6.0
+        uses: snyk/actions/node@v3
         with:
           command: test
           args: --all-projects
