@@ -62,6 +62,7 @@ jobs:
 
       - name: Check ESLint
         run: pnpm lint
+
   snyk:
     runs-on: ubuntu-latest
     steps:
