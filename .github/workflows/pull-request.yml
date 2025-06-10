@@ -74,8 +74,11 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Install PNPM
+        run: npm install -g pnpm@${{ env.PNPM_VERSION }}
+
       - name: Install Dependencies
-        run: pnpm install # Use npm or yarn if you're not using pnpm
+        run: pnpm install
 
       - name: Install Snyk CLI
         run: npm install -g snyk
