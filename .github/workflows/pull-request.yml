@@ -102,6 +102,13 @@ jobs:
           echo "Low Issues:"
           jq '.vulnerabilities[] | select(.severity=="low") | {title: .title, severity: .severity, url: .url}' snyk-report.json
 
+          echo "-----------------------------------"
+          echo "Summary of Vulnerabilities:"
+          echo "Critical: $(jq '[.vulnerabilities[] | select(.severity=="critical")] | length' snyk-report.json)"
+          echo "High: $(jq '[.vulnerabilities[] | select(.severity=="high")] | length' snyk-report.json)"
+          echo "Medium: $(jq '[.vulnerabilities[] | select(.severity=="medium")] | length' snyk-report.json)"
+          echo "Low: $(jq '[.vulnerabilities[] | select(.severity=="low")] | length' snyk-report.json)"
+
       - name: Upload Snyk Report
         uses: actions/upload-artifact@v4
         with:
