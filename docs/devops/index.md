@@ -8,4 +8,4 @@ This GitHub Actions workflow will install the snyk cli, Authenticate synk, displ
 and uploads the Snyk Report 
 
 Considerations
-Snyk Test will scan for vulnerabilities in dependencies and configuration files.
+Snyk Test will scan for vulnerabilities in dependencies and configuration files .
