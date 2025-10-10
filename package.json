@@ -30,7 +30,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "fs": "0.0.1-security",
     "next": "14.1.0",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
